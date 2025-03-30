@@ -32,24 +32,29 @@ const Navigation = () => {
       {/* Top Navbar */}
       <AppBar position="static" sx={{ backgroundColor: "#3f51b5" }}>
         <Toolbar>
-          {/* Hamburger Icon for Mobile */}
+          {/* Logo and Title - Stay on the Left */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Link to="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+              <img src="/prepInsight.png" alt="PrepInsight Logo" style={{ height: 40, marginRight: 10 }} />
+              <Typography variant="h6" sx={{ color: "white" }}>
+                NEET Analysis
+              </Typography>
+            </Link>
+          </Box>
+
+          {/* Hamburger Icon - Move to Right on Small Screens */}
           <IconButton
-            edge="start"
+            edge="end"
             color="inherit"
             aria-label="menu"
-            sx={{ display: { xs: "block", md: "none" } }}
+            sx={{ marginLeft: "auto", display: { xs: "block", md: "none" } }}
             onClick={handleDrawerToggle}
           >
             <MenuIcon />
           </IconButton>
 
-          {/* App Title */}
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            NEET Analysis
-          </Typography>
-
           {/* Desktop Navigation */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3, marginLeft: "auto" }}>
             {menuItems.map((item) => (
               <Typography key={item.text} variant="body1">
                 <Link to={item.path} style={{ color: "white", textDecoration: "none" }}>
