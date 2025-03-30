@@ -1,16 +1,35 @@
 .nav {
-  background-color: #f0f0f0;
-  padding: 10px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  background-color: #2c3e50; /* Dark blue-gray background */
+  padding: 20px 32px; /* Added padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  padding: 0;
+  margin: 0;
 }
 
 .link {
-  margin: 5px 10px;
   text-decoration: none;
-  color: #333;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ecf0f1; /* Light gray text */
+  padding: 12px 16px; /* Increased padding */
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover {
+  background-color: #3498db; /* Nice blue hover */
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.link:active {
+  transform: scale(1);
 }
