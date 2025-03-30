@@ -65,12 +65,8 @@ const Navigation = () => {
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
         <List sx={{ width: 250 }}>
           {menuItems.map((item) => (
-            <ListItem button key={item.text} onClick={handleDrawerToggle}>
-              <ListItemText>
-                <Link to={item.path} style={{ textDecoration: "none", color: "#3f51b5" }}>
-                  {item.text}
-                </Link>
-              </ListItemText>
+            <ListItem button key={item.text} component={Link} to={item.path} onClick={handleDrawerToggle}>
+              <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
