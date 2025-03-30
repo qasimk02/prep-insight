@@ -1,19 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation/Navigation'; // Assuming Navigation component is in this path
-import OverallAnalysis from './components/OverallAnalysis/OverallAnalysis'; // Assuming OverallAnalysis component is in this path
-import SubjectAnalysis from './components/SubjectAnalysis/SubjectAnalysis'; // Assuming SubjectAnalysis component is in this path
+import { Container, Box } from '@mui/material';
+import Navigation from './components/Navigation/Navigation';
+import OverallAnalysis from './components/OverallAnalysis/OverallAnalysis';
+import SubjectAnalysis from './components/SubjectAnalysis/SubjectAnalysis';
 
 function App() {
   return (
     <Router>
-      <Navigation />
-      <div style={{ marginTop: '20px' }}> {/* Add margin here */}
-        <Routes>
-          <Route path="/" element={<OverallAnalysis />} />
-          <Route path="/:subject" element={<SubjectAnalysis />} />
-        </Routes>
-      </div>
+      <Box sx={{ overflowX: 'hidden', width: '100vw', minHeight: '100vh' }}>
+        <Navigation />
+        <Container maxWidth="lg" sx={{ mt: 3, px: { xs: 2, sm: 4 } }}>
+          <Routes>
+            <Route path="/" element={<OverallAnalysis />} />
+            <Route path="/:subject" element={<SubjectAnalysis />} />
+          </Routes>
+        </Container>
+      </Box>
     </Router>
   );
 }

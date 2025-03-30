@@ -4,24 +4,39 @@ import styles from './Charts.module.css';
 
 const CustomLineChart = ({ data, dataKey, name }) => {
   const renderDot = (props) => {
-    const { payload, index } = props;
+    const { cx, cy, payload, index } = props;
+  
     if (index === 0) {
-      return <Dot {...props} fill="#8884d8" />; // Default color for the first point
+      return (
+        <>
+          <Dot {...props} fill="#8884d8" />
+          <text x={cx} y={cy - 5} fontSize={10} textAnchor="middle" fill="#333">
+            {payload[dataKey]}
+          </text>
+        </>
+      );
     }
-
+  
     const prevPayload = data[index - 1];
     const currentValue = payload[dataKey];
     const prevValue = prevPayload[dataKey];
-
-    let dotColor = '#8884d8'; // Default color
-
-    if (dataKey === 'score' || dataKey === 'correct' || dataKey === 'total') { // Apply logic only for score
-      dotColor = currentValue > prevValue ? 'blue' : 'red';
+  
+    let dotColor = "#8884d8"; // Default color
+  
+    if (dataKey === "score" || dataKey === "correct" || dataKey === "total") {
+      dotColor = currentValue > prevValue ? "blue" : "red";
     } else {
-      dotColor = currentValue > prevValue ? 'red' : 'blue';
+      dotColor = currentValue > prevValue ? "red" : "blue";
     }
-
-    return <Dot {...props} fill={dotColor} />;
+  
+    return (
+      <>
+        <Dot {...props} fill={dotColor} />
+        <text x={cx} y={cy - 5} fontSize={10} textAnchor="middle" fill="#333">
+          {currentValue}
+        </text>
+      </>
+    );
   };
 
   return (
@@ -30,14 +45,13 @@ const CustomLineChart = ({ data, dataKey, name }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="test" />
         <YAxis />
-        <Tooltip />
         <Legend />
         <Line
           type="monotone"
           dataKey={dataKey}
           stroke="#8884d8"
           name={name}
-          dot={renderDot} // Use the custom dot rendering function
+          dot={renderDot}
         />
       </LineChart>
     </div>

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   getSubjectScores,
   getSubjectAccuracy,
   getSubjectCorrect,
   getSubjectIncorrect,
   getSubjectSkipped,
-} from '../../utils/utils';
-import LineChart from '../Charts/LineChart';
-import BarChart from '../Charts/BarChart';
-import Table from '../Table/Table';
-import PieChart from '../Charts/PieChart';
-import { Container, Grid, Paper, Collapse, Typography, Box } from '@mui/material';
+} from "../../utils/utils";
+import LineChart from "../Charts/LineChart";
+import BarChart from "../Charts/BarChart";
+import Table from "../Table/Table";
+import PieChart from "../Charts/PieChart";
+import { Container, Grid, Paper, Collapse, Typography, Box } from "@mui/material";
 
 const SubjectAnalysis = () => {
   const { subject } = useParams();
@@ -27,40 +27,40 @@ const SubjectAnalysis = () => {
   );
 
   const pieChartData = [
-    { name: 'Correct', value: accuracyData.correct },
-    { name: 'Incorrect', value: accuracyData.incorrect },
-    { name: 'Skipped', value: accuracyData.skipped },
+    { name: "Correct", value: accuracyData.correct },
+    { name: "Incorrect", value: accuracyData.incorrect },
+    { name: "Skipped", value: accuracyData.skipped },
   ];
 
   // State for chart visibility (initially closed)
-  const [scoreOpen, setScoreOpen] = useState(false);
-  const [correctOpen, setCorrectOpen] = useState(false);
-  const [incorrectOpen, setIncorrectOpen] = useState(false);
-  const [skippedOpen, setSkippedOpen] = useState(false);
-  const [barChartOpen, setBarChartOpen] = useState(false);
-  const [pieChartOpen, setPieChartOpen] = useState(false);
+  const [scoreOpen, setScoreOpen] = useState(true);
+  const [correctOpen, setCorrectOpen] = useState(true);
+  const [incorrectOpen, setIncorrectOpen] = useState(true);
+  const [skippedOpen, setSkippedOpen] = useState(true);
+  const [barChartOpen, setBarChartOpen] = useState(true);
+  const [pieChartOpen, setPieChartOpen] = useState(true);
 
   return (
     <Container maxWidth="lg">
       <Typography
         variant="h4"
         align="center"
-        style={{
+        sx={{
           fontWeight: 700,
-          marginBottom: '24px',
-          textTransform: 'capitalize',
-          color: '#3f51b5',
-          textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
+          mb: 3,
+          textTransform: "capitalize",
+          color: "#3f51b5",
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.1)",
         }}
       >
         {subject.toUpperCase()} ANALYSIS
       </Typography>
 
-      <Grid spacing={10}>
+      <Grid container spacing={4} justifyContent="center">
         {/* Table */}
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
-            <Typography variant="h6" style={{ fontWeight: 600, textAlign: 'center', padding: '8px 16px' }}>
+        <Grid item xs={12} sm={12} md={6} display="flex" justifyContent="center">
+          <Paper sx={{ p: 3, width: "100%", maxWidth: 500 }}>
+            <Typography variant="h6" fontWeight={600} textAlign="center" pb={1}>
               Table
             </Typography>
             <Table data={getSubjectAccuracy(subject)} subject={subject.toUpperCase()} />
@@ -68,107 +68,61 @@ const SubjectAnalysis = () => {
         </Grid>
 
         {/* Pie Chart */}
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
+        <Grid item xs={12} sm={12} md={6} display="flex" justifyContent="center">
+          <Paper sx={{ p: 3, width: "100%", maxWidth: 500 }}>
             <Box
               display="flex"
-              alignItems="center"
               justifyContent="center"
+              alignItems="center"
+              sx={{ cursor: "pointer" }}
               onClick={() => setPieChartOpen(!pieChartOpen)}
-              style={{ cursor: 'pointer' }}
             >
-              <Typography variant="h6" style={{ fontWeight: 600, padding: '8px 16px' }}>
+              <Typography variant="h6" fontWeight={600} pb={1}>
                 {`${subject.toUpperCase()} ACCURACY`}
               </Typography>
             </Box>
             <PieChart data={pieChartData} />
           </Paper>
         </Grid>
+
         {/* Line Charts */}
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => setScoreOpen(!scoreOpen)}
-              style={{ cursor: 'pointer' }}
-            >
-              <Typography variant="subtitle1" style={{ fontWeight: 600, padding: '8px 16px' }}>
-                {`${subject.toUpperCase()} SCORE CHART`}
-              </Typography>
-            </Box>
-            <Collapse in={scoreOpen}>
-              <LineChart data={getSubjectScores(subject)} dataKey="score" name={`${subject.toUpperCase()} Score`} />
-            </Collapse>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => setCorrectOpen(!correctOpen)}
-              style={{ cursor: 'pointer' }}
-            >
-              <Typography variant="subtitle1" style={{ fontWeight: 600, padding: '8px 16px' }}>
-                {`${subject.toUpperCase()} CORRECT CHART`}
-              </Typography>
-            </Box>
-            <Collapse in={correctOpen}>
-              <LineChart data={getSubjectCorrect(subject)} dataKey="correct" name={`${subject.toUpperCase()} Correct`} />
-            </Collapse>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => setIncorrectOpen(!incorrectOpen)}
-              style={{ cursor: 'pointer' }}
-            >
-              <Typography variant="subtitle1" style={{ fontWeight: 600, padding: '8px 16px' }}>
-                {`${subject.toUpperCase()} INCORRECT CHART`}
-              </Typography>
-            </Box>
-            <Collapse in={incorrectOpen}>
-              <LineChart data={getSubjectIncorrect(subject)} dataKey="incorrect" name={`${subject.toUpperCase()} Incorrect`} />
-            </Collapse>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper style={{ padding: 16 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => setSkippedOpen(!skippedOpen)}
-              style={{ cursor: 'pointer' }}
-            >
-              <Typography variant="subtitle1" style={{ fontWeight: 600, padding: '8px 16px' }}>
-                {`${subject.toUpperCase()} SKIPPPED CHART`}
-              </Typography>
-            </Box>
-            <Collapse in={skippedOpen}>
-              <LineChart data={getSubjectSkipped(subject)} dataKey="skipped" name={`${subject.toUpperCase()} Skipped`} />
-            </Collapse>
-          </Paper>
-        </Grid>
+        {[
+          { label: "SCORE", open: scoreOpen, setOpen: setScoreOpen, data: getSubjectScores(subject), dataKey: "score" },
+          { label: "CORRECT", open: correctOpen, setOpen: setCorrectOpen, data: getSubjectCorrect(subject), dataKey: "correct" },
+          { label: "INCORRECT", open: incorrectOpen, setOpen: setIncorrectOpen, data: getSubjectIncorrect(subject), dataKey: "incorrect" },
+          { label: "SKIPPED", open: skippedOpen, setOpen: setSkippedOpen, data: getSubjectSkipped(subject), dataKey: "skipped" },
+        ].map((chart, index) => (
+          <Grid item xs={12} sm={6} md={6} key={index} display="flex" justifyContent="center">
+            <Paper sx={{ p: 3, width: "100%", maxWidth: 500 }}>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ cursor: "pointer" }}
+                onClick={() => chart.setOpen(!chart.open)}
+              >
+                <Typography variant="subtitle1" fontWeight={600} pb={1}>
+                  {`${subject.toUpperCase()} ${chart.label} CHART`}
+                </Typography>
+              </Box>
+              <Collapse in={chart.open}>
+                <LineChart data={chart.data} dataKey={chart.dataKey} name={`${subject.toUpperCase()} ${chart.label}`} />
+              </Collapse>
+            </Paper>
+          </Grid>
+        ))}
 
         {/* Bar Chart */}
-        <Grid item xs={12}>
-          <Paper style={{ padding: 16 }}>
+        <Grid item xs={12} display="flex" justifyContent="center">
+          <Paper sx={{ p: 3, width: "100%", maxWidth: 600 }}>
             <Box
               display="flex"
-              alignItems="center"
               justifyContent="center"
+              alignItems="center"
+              sx={{ cursor: "pointer" }}
               onClick={() => setBarChartOpen(!barChartOpen)}
-              style={{ cursor: 'pointer' }}
             >
-              <Typography variant="h6" style={{ fontWeight: 600, padding: '8px 16px' }}>
+              <Typography variant="h6" fontWeight={600} pb={1}>
                 Analysis at One Place
               </Typography>
             </Box>
@@ -176,16 +130,13 @@ const SubjectAnalysis = () => {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <BarChart
                   data={getSubjectAccuracy(subject)}
-                  dataKeys={['correct', 'incorrect', 'skipped']}
-                  names={['Correct', 'Incorrect', 'Skipped']}
+                  dataKeys={["correct", "incorrect", "skipped"]}
+                  names={["Correct", "Incorrect", "Skipped"]}
                 />
               </Box>
             </Collapse>
           </Paper>
         </Grid>
-
-
-
       </Grid>
     </Container>
   );
