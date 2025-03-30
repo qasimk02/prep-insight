@@ -10,14 +10,6 @@ import styles from './SubjectAnalysis.module.css';
 const SubjectAnalysis = () => {
   const { subject } = useParams();
 
-  const subjectScores = getSubjectScores(subject).reduce(
-    (acc, test) => {
-      acc.score += test.score;
-      return acc;
-    },
-    { score: 0 }
-  );
-
   const accuracyData = getSubjectAccuracy(subject).reduce(
     (acc, test) => {
       acc.correct += test.correct;
@@ -27,9 +19,6 @@ const SubjectAnalysis = () => {
     },
     { correct: 0, incorrect: 0, skipped: 0 }
   );
-
-  const totalAttempts = accuracyData.correct + accuracyData.incorrect;
-  const accuracyPercentage = totalAttempts > 0 ? (subjectScores.score / totalAttempts) * 100 : 0;
 
   const pieChartData = [
     { name: 'Correct', value: accuracyData.correct },

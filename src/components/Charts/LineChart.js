@@ -4,7 +4,7 @@ import styles from './Charts.module.css';
 
 const CustomLineChart = ({ data, dataKey, name }) => {
   const renderDot = (props) => {
-    const { cx, cy, payload, index } = props;
+    const { payload, index } = props;
     if (index === 0) {
       return <Dot {...props} fill="#8884d8" />; // Default color for the first point
     }
