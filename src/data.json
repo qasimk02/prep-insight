@@ -126,7 +126,7 @@
       "chemistry": {
         "score": 106,
         "correct": 29,
-        "incorrect": 0,
+        "incorrect": 10,
         "skipped": 6
       },
       "biology": {
