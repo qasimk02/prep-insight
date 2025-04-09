@@ -160,7 +160,31 @@
       },
       "total": 465,
       "rank_air": 1947
+    },
+    {
+      "test": "T-53",
+      "physics": {
+        "score": 116,
+        "correct": 31,
+        "incorrect": 8,
+        "skipped": 6
+      },
+      "chemistry": {
+        "score": 91,
+        "correct": 26,
+        "incorrect": 13,
+        "skipped": 6
+      },
+      "biology": {
+        "score": 297,
+        "correct": 77,
+        "incorrect": 11,
+        "skipped": 2
+      },
+      "total": 504,
+      "rank_air": 1991
     }
+    
   ],
   "quotes": [
     "💪 Work hard with sincerity, for Allah sees your efforts, not just the results.",
